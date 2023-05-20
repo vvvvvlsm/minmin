@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>敏敏的个人主页</title>
     <meta charset="UTF-8">
@@ -16,57 +15,135 @@
             background-image: url("leaves.webp");
             background-size: cover;
         }
+        /* 菜单栏样式 */
+        #menu-content {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #f1f1f1;
+            z-index: 1;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+        #menu-content.open {
+            display: block;
+        }
+        #menu-content a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #000;
+            display: block;
+        }
+        #menu-content a:hover {
+            background-color: #ddd;
+        }
+        /* 隐藏除当前部分外的内容 */
+        section {
+            display: none;
+        }
+        section.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
 <header>
     <h1>欢迎来到我的个人主页</h1>
     <h1>今天也要开心哦</h1>
-            <p><a href="#about">简介</a></p>
-            <p><a href="#experience">经历</a></p>
-            <p><a href="#education">学历</a></p>
-            <p><a href="#skills">技能</a></p>
+    <!-- 菜单按钮 -->
+    <button id="menu-trigger">菜单</button>
 </header>
 
 <main>
-    <section id="about">
+    <!-- 菜单内容 -->
+    <div id="menu-content">
+        <a class="nav-link" href="#about">简介</a>
+        <a class="nav-link" href="#experience">经历</a>
+        <a class="nav-link" href="#education">学历</a>
+        <a class="nav-link" href="#skills">技能</a>
+    </div>
+
+    <section id="about" class="show">
         <h2>关于我</h2>
         <p>姓名:李诗敏</p>
         <p>出生年月:2003.01</p>
         <p>星座:水瓶座</p>
         <p>身高:一米八</p>
         <p>体重:你猜?</p>
-        <!--        <img src="d955464f6f5ba38780e1e73f95fc75a.jpg" alt="我的照片"width="380" height="500">-->
     </section>
 
     <section id="experience">
         <h2>大学经历</h2>
-                    <p>2021至今担任班级团支书</p>
-                    <p>2021至今担任年级团副书记</p>
-                    <p>2021-2022学年担任校团委文体部干事</p>
-                    <p>2021-2022学年担任院体育部干事</p>
+        <p>2021至今担任班级团支书</p>
+        <p>2021至今担任年级团副书记</p>
+        <p>2021-2022学年担任校团委文体部干事</p>
+        <p>2021-2022学年担任院体育部干事</p>
     </section>
 
     <section id="education">
         <h2>教育背景</h2>
-                <p>目前就读于福建工程学院计算机科学与数学学院数据科学与大数据技术专业</p>
-                <h3>这是我们学校的网址:</h3>
+        <p>目前就读于福建工程学院计算机科学与数学学院数据科学与大数据技术专业</p>
+        <h3>这是我们学校的网址:</h3>
         <a href="https://www.fjut.edu.cn/main.htm" target="_blank">https://www.fjut.edu.cn/main.htm</a>
-    </section>
     </section>
 
     <section id="skills">
         <h2>目前学习掌握的技能有:</h2>
-            <p>HTML</p>
-            <p>CSS</p>
-            <p>Java</p>
-            <p>MySQL</p>
-            <p>C++</p>
-            <p>python</p>
+        <p>HTML</p>
+        <p>CSS</p>
+        <p>Java</p>
+        <p>MySQL</p>
+        <p>C++</p>
+        <p>python</p>
     </section>
 </main>
 
 <footer>
     <p>&copy; 2023 我的个人主页</p>
 </footer>
+
+<script>
+    // JavaScript代码
+    // 获取菜单按钮和菜单内容
+    const menuTrigger = document.getElementById('menu-trigger');
+    const menuContent = document.getElementById('menu-content');
+
+    // 监听菜单按钮点击事件
+    menuTrigger.addEventListener('click', () => {
+        // 切换菜单内容的显示状态
+        menuContent.classList.toggle('open');
+    });
+
+    // 获取菜单链接
+    const navLinks = document.getElementsByClassName('nav-link');
+
+    // 监听菜单链接点击事件
+    for (let i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener('click', (event) => {
+            event.preventDefault(); // 阻止默认的链接跳转行为
+
+            // 获取目标部分的ID
+            const targetId = navLinks[i].getAttribute('href').substring(1);
+
+            // 隐藏所有部分
+            const sections = document.getElementsByTagName('section');
+            for (let j = 0; j < sections.length; j++) {
+                sections[j].classList.remove('show');
+            }
+
+            // 显示目标部分
+            const targetSection = document.getElementById(targetId);
+            targetSection.classList.add('show');
+
+            // 关闭菜单
+            menuContent.classList.remove('open');
+        });
+    }
+</script>
+
 </body>
+</html>
